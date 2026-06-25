@@ -1,0 +1,350 @@
+/* ===== ベース ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #1d2b33;
+  --paper: #f2faff;
+  --accent: #00a4e4;
+  --accent-deep: #0079c2;
+  --accent-soft: #d9f1fc;
+  --gray: #5b6b73;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Noto Sans JP", sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ===== ナビ ===== */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: rgba(247, 244, 238, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+.nav-logo {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
+}
+.nav-logo-sub {
+  font-size: 0.7rem;
+  color: var(--gray);
+  font-weight: 400;
+  margin-left: 6px;
+}
+.nav-links { display: flex; gap: 22px; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* ===== ヒーロー ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.05);
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 140, 210, 0.78),
+    rgba(0, 174, 235, 0.55) 55%,
+    rgba(20, 60, 90, 0.6)
+  );
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #fff;
+  padding: 0 24px;
+  max-width: 960px;
+  animation: fadeUp 1s ease both;
+}
+.hero-tag {
+  font-size: 0.95rem;
+  letter-spacing: 0.5em;
+  margin-bottom: 26px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 500;
+}
+.hero-title {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 3.6vw, 2.7rem);
+  line-height: 1.85;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-shadow: 0 2px 18px rgba(0, 60, 100, 0.4);
+}
+/* 手書き＋水色ハイライトボックス（参考: Sky採用サイト） */
+.hero-mark {
+  font-family: "Yomogi", cursive;
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 400;
+  padding: 0.04em 0.42em;
+  margin: 0 0.1em;
+  border-radius: 6px;
+  line-height: 1.2;
+  transform: rotate(-1.5deg);
+  box-shadow: 0 6px 18px rgba(0, 121, 194, 0.45);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.hero-em {
+  font-family: "Yomogi", cursive;
+  color: #fff;
+  font-weight: 400;
+}
+.hero-cta {
+  display: inline-block;
+  margin-top: 36px;
+  padding: 14px 36px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 999px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 24px rgba(0, 121, 194, 0.4);
+}
+.hero-cta:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 12px 30px rgba(0, 121, 194, 0.55); }
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  color: #fff;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  animation: bob 1.8s ease-in-out infinite;
+}
+
+/* ===== セクション共通 ===== */
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 110px 24px;
+  text-align: center;
+}
+.section-tag {
+  color: var(--accent);
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  font-size: 0.8rem;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.5rem, 3.5vw, 2.6rem);
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+.big-num { color: var(--accent); }
+.section-lead {
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--gray);
+  font-size: 1.02rem;
+}
+.section-lead strong { color: var(--ink); }
+
+/* ===== カード ===== */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s, box-shadow 0.25s;
+  border: 2px solid transparent;
+  text-align: left;
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+  border-color: var(--accent-soft);
+}
+.card-img { height: 170px; overflow: hidden; }
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.card:hover .card-img img { transform: scale(1.06); }
+.card h3 { font-size: 1.15rem; margin: 22px 24px 10px; }
+.card p { color: var(--gray); font-size: 0.92rem; margin: 0 24px 28px; }
+
+/* ===== 数字 ===== */
+.stats {
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  color: #fff;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 70px 24px;
+  text-align: center;
+}
+.stat-num {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  color: #fff;
+  line-height: 1;
+}
+.stat-num span { font-size: 0.4em; margin-left: 4px; }
+.stat-label { margin-top: 14px; font-size: 0.85rem; opacity: 0.8; }
+
+/* ===== 社員 ===== */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+  text-align: left;
+}
+.member {
+  display: flex;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  transition: transform 0.25s;
+}
+.member:hover { transform: translateY(-6px); }
+.member-photo {
+  position: relative;
+  flex: 0 0 150px;
+  background: var(--accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.member-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.member-body { padding: 24px 26px; flex: 1; }
+.member-role {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+.member-role--plain { background: var(--gray); }
+.member-name {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+.member-name--big {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+}
+.member-desc { color: var(--gray); font-size: 0.9rem; margin-bottom: 14px; }
+.member-skills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.member-skills li {
+  background: var(--paper);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.75rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: var(--ink);
+}
+
+/* ===== お問い合わせ ===== */
+.contact { background: var(--accent-soft); border-radius: 32px; margin: 0 16px 60px; }
+
+/* ===== フッター ===== */
+.footer {
+  background: var(--ink);
+  color: #fff;
+  text-align: center;
+  padding: 50px 24px;
+}
+.footer-logo {
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+.footer-copy { font-size: 0.85rem; opacity: 0.8; }
+.footer-note { font-size: 0.72rem; opacity: 0.45; margin-top: 16px; }
+
+/* ===== アニメ ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.97); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 860px) {
+  .nav-links { display: none; }
+  .cards { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; gap: 40px; }
+  .member-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .member { flex-direction: column; }
+  .member-photo { flex: 0 0 200px; height: 200px; }
+}
